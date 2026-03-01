@@ -57,6 +57,10 @@ interface ResourceStore {
     settings: StoreSettings;
     updateSettings: (settings: Partial<StoreSettings>) => void;
 
+    // Customer Actions
+    customers: User[];
+    updateCustomer: (id: string, customer: Partial<User>) => void;
+
     // Supabase Sync
     refreshFromSupabase: () => Promise<void>;
 }
@@ -209,6 +213,7 @@ export const useResourceStore = create<ResourceStore>()(
             products: initialProducts,
             categories: initialCategories,
             orders: initialOrders,
+            customers: [],
             settings: {
                 storeName: 'She Loves It',
                 email: 'hello@shelovesit.com',
@@ -281,15 +286,24 @@ export const useResourceStore = create<ResourceStore>()(
                 settings: { ...state.settings, ...newSettings }
             })),
 
+            // Customer Actions
+            updateCustomer: (id, updatedCustomer) => set((state) => ({
+                customers: state.customers.map((c) =>
+                    c.id === id ? { ...c, ...updatedCustomer } : c
+                )
+            })),
+
             // Sync
             refreshFromSupabase: async () => {
                 try {
                     const { data: products } = await supabase.from('products').select('*, images:product_images(*)');
                     const { data: categories } = await supabase.from('categories').select('*').order('order_index');
                     const { data: settings } = await supabase.from('store_settings').select('*').eq('id', 1).single();
+                    const { data: profiles } = await supabase.from('profiles').select('*');
 
                     if (products) set({ products: products as any[] });
                     if (categories) set({ categories: categories as any[] });
+                    if (profiles) set({ customers: profiles as User[] });
                     if (settings) {
                         set({
                             settings: {

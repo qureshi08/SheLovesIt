@@ -69,9 +69,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
-import { useResourceStore } from '@/lib/store';
-import { Product, OrderStatus, Order } from '@/types';
+import { useResourceStore, useAuthStore } from '@/lib/store';
+import { Product, OrderStatus, Order, User as UserType } from '@/types';
 import { toast } from 'react-hot-toast';
+import { supabase } from '@/lib/supabase';
+import { useEffect } from 'react';
 
 export default function AdminDashboard() {
     const {
@@ -86,8 +88,31 @@ export default function AdminDashboard() {
         deleteCategory,
         updateOrder,
         settings,
-        updateSettings
+        updateSettings,
+        customers,
+        updateCustomer,
+        refreshFromSupabase
     } = useResourceStore();
+
+    useEffect(() => {
+        refreshFromSupabase();
+    }, [refreshFromSupabase]);
+
+    const toggleRole = async (customerId: string, currentRole: string) => {
+        const newRole = currentRole === 'admin' ? 'customer' : 'admin';
+        try {
+            const { error } = await supabase
+                .from('profiles')
+                .update({ role: newRole })
+                .eq('id', customerId);
+
+            if (error) throw error;
+            updateCustomer(customerId, { role: newRole });
+            toast.success(`Role updated to ${newRole}`);
+        } catch (e) {
+            toast.error("Failed to update role");
+        }
+    };
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('dashboard');
@@ -773,54 +798,61 @@ export default function AdminDashboard() {
                                     <TableHeader>
                                         <TableRow className="bg-muted/30">
                                             <TableHead className="font-semibold">Customer</TableHead>
+                                            <TableHead className="font-semibold">Role</TableHead>
                                             <TableHead className="font-semibold">Phone</TableHead>
-                                            <TableHead className="font-semibold">Orders</TableHead>
-                                            <TableHead className="font-semibold">Total Spent</TableHead>
-                                            <TableHead className="font-semibold">Last Order</TableHead>
+                                            <TableHead className="font-semibold text-right">Orders</TableHead>
+                                            <TableHead className="font-semibold text-right">Total Spent</TableHead>
+                                            <TableHead className="font-semibold">Actions</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {Object.values(orders.reduce((acc, order) => {
-                                            const email = order.customer_email.toLowerCase();
-                                            if (!acc[email]) {
-                                                acc[email] = {
-                                                    name: order.customer_name,
-                                                    email: order.customer_email,
-                                                    phone: order.customer_phone,
-                                                    orders: 0,
-                                                    totalSpent: 0,
-                                                    lastOrder: order.created_at,
-                                                };
-                                            }
-                                            acc[email].orders += 1;
-                                            acc[email].totalSpent += order.total_amount;
-                                            if (new Date(order.created_at) > new Date(acc[email].lastOrder)) {
-                                                acc[email].lastOrder = order.created_at;
-                                            }
-                                            return acc;
-                                        }, {} as Record<string, any>)).map((customer: any) => (
-                                            <TableRow key={customer.email} className="hover:bg-muted/30">
-                                                <TableCell>
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-9 h-9 rounded-full bg-she-pink-lighter flex items-center justify-center flex-shrink-0">
-                                                            <span className="text-she-pink text-xs font-bold">
-                                                                {customer.name.split(' ').map((n: string) => n[0]).join('')}
-                                                            </span>
+                                        {customers.map((customer) => {
+                                            const customerOrders = orders.filter(o => o.customer_email.toLowerCase() === customer.email.toLowerCase());
+                                            const totalSpent = customerOrders.reduce((sum, o) => sum + o.total_amount, 0);
+
+                                            return (
+                                                <TableRow key={customer.id} className="hover:bg-muted/30">
+                                                    <TableCell>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-9 h-9 rounded-full bg-she-pink-lighter flex items-center justify-center flex-shrink-0">
+                                                                <span className="text-she-pink text-xs font-bold">
+                                                                    {customer.full_name?.split(' ').map((n: string) => n[0]).join('') || '?'}
+                                                                </span>
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-medium text-sm">{customer.full_name || 'Anonymous'}</p>
+                                                                <p className="text-xs text-muted-foreground">{customer.email}</p>
+                                                            </div>
                                                         </div>
-                                                        <div>
-                                                            <p className="font-medium text-sm">{customer.name}</p>
-                                                            <p className="text-xs text-muted-foreground">{customer.email}</p>
-                                                        </div>
-                                                    </div>
-                                                </TableCell>
-                                                <TableCell className="text-sm">{customer.phone}</TableCell>
-                                                <TableCell className="text-sm">{customer.orders}</TableCell>
-                                                <TableCell className="text-sm font-medium">{formatPrice(customer.totalSpent)}</TableCell>
-                                                <TableCell className="text-sm text-muted-foreground">
-                                                    {new Date(customer.lastOrder).toLocaleDateString('en-PK', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Badge variant="outline" className={`capitalize rounded-full ${customer.role === 'admin' ? 'bg-she-pink/10 text-she-pink border-she-pink/20' : 'bg-blue-50 text-blue-700 border-blue-200'}`}>
+                                                            {customer.role || 'Customer'}
+                                                        </Badge>
+                                                    </TableCell>
+                                                    <TableCell className="text-sm">{customer.phone || 'N/A'}</TableCell>
+                                                    <TableCell className="text-sm text-right font-medium">{customerOrders.length}</TableCell>
+                                                    <TableCell className="text-sm text-right font-bold text-she-pink">{formatPrice(totalSpent)}</TableCell>
+                                                    <TableCell>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            className="text-[10px] h-7 font-bold uppercase tracking-wider"
+                                                            onClick={() => toggleRole(customer.id, customer.role || 'customer')}
+                                                        >
+                                                            Make {customer.role === 'admin' ? 'Customer' : 'Admin'}
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                        {customers.length === 0 && (
+                                            <TableRow>
+                                                <TableCell colSpan={6} className="h-32 text-center text-muted-foreground text-sm">
+                                                    No customers found in database.
                                                 </TableCell>
                                             </TableRow>
-                                        ))}
+                                        )}
                                     </TableBody>
                                 </Table>
                             </div>
