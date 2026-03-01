@@ -1,26 +1,243 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* SHE Beauty Brand Colors */
+  --color-she-pink: #E91E63;
+  --color-she-pink-light: #F48FB1;
+  --color-she-pink-lighter: #FCE4EC;
+  --color-she-pink-dark: #C2185B;
+  --color-she-pink-darker: #880E4F;
+  --color-she-neutral: #1A1A1A;
+  --color-she-light: #F5F5F5;
+  --color-she-gray: #E0E0E0;
+  --color-she-success: #4CAF50;
+  --color-she-warning: #FF9800;
+  --color-she-error: #F44336;
+  --color-she-info: #2196F3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.75rem;
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #E91E63;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FCE4EC;
+  --secondary-foreground: #C2185B;
+  --muted: #F5F5F5;
+  --muted-foreground: #6B7280;
+  --accent: #FCE4EC;
+  --accent-foreground: #C2185B;
+  --destructive: #F44336;
+  --border: #E0E0E0;
+  --input: #E0E0E0;
+  --ring: #E91E63;
+  --chart-1: #E91E63;
+  --chart-2: #F48FB1;
+  --chart-3: #C2185B;
+  --chart-4: #FCE4EC;
+  --chart-5: #880E4F;
+  --sidebar: #FAFAFA;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #E91E63;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #FCE4EC;
+  --sidebar-accent-foreground: #C2185B;
+  --sidebar-border: #E0E0E0;
+  --sidebar-ring: #E91E63;
+}
+
+.dark {
+  --background: #0F0F0F;
+  --foreground: #F5F5F5;
+  --card: #1A1A1A;
+  --card-foreground: #F5F5F5;
+  --popover: #1A1A1A;
+  --popover-foreground: #F5F5F5;
+  --primary: #F48FB1;
+  --primary-foreground: #1A1A1A;
+  --secondary: #2D1B25;
+  --secondary-foreground: #F48FB1;
+  --muted: #262626;
+  --muted-foreground: #9CA3AF;
+  --accent: #2D1B25;
+  --accent-foreground: #F48FB1;
+  --destructive: #EF4444;
+  --border: rgba(255,255,255,0.1);
+  --input: rgba(255,255,255,0.15);
+  --ring: #F48FB1;
+  --chart-1: #F48FB1;
+  --chart-2: #E91E63;
+  --chart-3: #FCE4EC;
+  --chart-4: #C2185B;
+  --chart-5: #880E4F;
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #F48FB1;
+  --sidebar-primary-foreground: #1A1A1A;
+  --sidebar-accent: #2D1B25;
+  --sidebar-accent-foreground: #F48FB1;
+  --sidebar-border: rgba(255,255,255,0.1);
+  --sidebar-ring: #F48FB1;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--she-pink-light, #F48FB1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--she-pink, #E91E63);
+}
+
+/* Product image zoom effect */
+.product-image-zoom {
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.product-image-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Stagger animation for grid items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(233, 30, 99, 0.08), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #E91E63, #C2185B, #880E4F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(26, 26, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Pulse badge for cart */
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.animate-pulse-badge {
+  animation: pulse-badge 0.3s ease-in-out;
+}
+
+/* Hero section parallax */
+.hero-gradient {
+  background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 30%, #F48FB1 60%, #E91E63 100%);
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
