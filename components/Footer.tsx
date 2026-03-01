@@ -32,14 +32,12 @@ export default function Footer() {
                     {/* Brand */}
                     <div>
                         <div className="flex items-center gap-2 mb-4">
-                            <div className="relative w-20 h-10 flex items-center justify-center">
-                                <Image
-                                    src="/logo.png"
-                                    alt="She Loves It"
-                                    width={100}
-                                    height={50}
-                                    className="object-contain brightness-0 invert"
-                                />
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-she-pink to-she-pink-dark flex items-center justify-center">
+                                <span className="text-white font-bold text-lg">S</span>
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold">She Loves It</h4>
+                                <p className="text-[10px] text-white/60 tracking-[0.2em] uppercase text-xs">Premium Beauty</p>
                             </div>
                         </div>
                         <p className="text-white/60 text-sm leading-relaxed mb-4">

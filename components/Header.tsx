@@ -109,16 +109,14 @@ export default function Header() {
                         </SheetContent>
                     </Sheet>
 
-                    {/* Logo - Refined for luxury feel */}
-                    <Link href="/" className="flex items-center gap-2 group py-2">
-                        <div className="relative w-32 h-10 flex items-center justify-center">
-                            <Image
-                                src="/logo.png"
-                                alt="She Loves It"
-                                fill
-                                className="object-contain"
-                                priority
-                            />
+                    {/* Logo - Text Version Reverted */}
+                    <Link href="/" className="flex items-center gap-2 group transition-all duration-300 hover:scale-[1.02]">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-she-pink to-she-pink-dark flex items-center justify-center shadow-lg group-hover:shadow-she-pink/20 transition-all duration-300">
+                            <span className="text-white font-bold text-lg">S</span>
+                        </div>
+                        <div className="hidden sm:block">
+                            <h1 className="font-bold text-lg gradient-text leading-none">She Loves It</h1>
+                            <p className="text-[10px] text-muted-foreground tracking-[0.2em] font-medium uppercase">Premium Beauty</p>
                         </div>
                     </Link>
 
