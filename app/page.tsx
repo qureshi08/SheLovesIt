@@ -67,24 +67,6 @@ export default function HomePage() {
                     </Button>
                   </Link>
                 </div>
-
-                {/* Trust badges */}
-                <div className="flex items-center gap-6 mt-10 justify-center lg:justify-start">
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-she-pink">10K+</p>
-                    <p className="text-xs text-muted-foreground">Happy Customers</p>
-                  </div>
-                  <div className="w-px h-10 bg-border" />
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-she-pink">200+</p>
-                    <p className="text-xs text-muted-foreground">Products</p>
-                  </div>
-                  <div className="w-px h-10 bg-border" />
-                  <div className="text-center">
-                    <p className="text-2xl font-bold text-she-pink">4.9</p>
-                    <p className="text-xs text-muted-foreground">Avg Rating</p>
-                  </div>
-                </div>
               </div>
 
               {/* Hero Image Collage */}
@@ -116,30 +98,6 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Bar */}
-        <section className="bg-white border-y border-border/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-              {[
-                { icon: Truck, text: 'Free Shipping', sub: 'On orders over Rs. 3,000' },
-                { icon: RefreshCw, text: '30-Day Returns', sub: 'Easy returns & exchange' },
-                { icon: Shield, text: '100% Authentic', sub: 'Guaranteed genuine products' },
-                { icon: Gift, text: 'Gift Wrapping', sub: 'Beautiful presentation' },
-              ].map((feature, i) => (
-                <div key={i} className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-she-pink-lighter/30 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-she-pink-lighter flex items-center justify-center flex-shrink-0">
-                    <feature.icon className="w-5 h-5 text-she-pink" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-sm">{feature.text}</p>
-                    <p className="text-xs text-muted-foreground">{feature.sub}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
@@ -198,30 +156,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Banner */}
-        <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-she-pink-dark via-she-pink to-she-pink-light p-8 sm:p-12 lg:p-16">
-              <div className="absolute inset-0 bg-black/10" />
-              <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
-              <div className="relative text-center text-white max-w-2xl mx-auto">
-                <h2 className="text-3xl sm:text-4xl font-bold mb-4 font-[var(--font-display)]">
-                  Get 10% Off Your First Order
-                </h2>
-                <p className="text-white/80 mb-6 text-lg">
-                  Use code <span className="font-bold bg-white/20 px-3 py-1 rounded-full text-sm">SLI10</span> at checkout
-                </p>
-                <Link href="/products">
-                  <Button className="bg-white text-she-pink hover:bg-white/90 rounded-full h-12 px-8 text-base font-semibold shadow-xl">
-                    Start Shopping
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+
 
         {/* New Arrivals */}
         <section className="py-16 bg-muted/20">
@@ -244,49 +179,6 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {newArrivals.map((product, i) => (
                 <ProductCard key={product.id} product={product} index={i} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold mb-3 font-[var(--font-display)]">What Our Customers Say</h2>
-              <p className="text-muted-foreground">Real reviews from real beauty lovers</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { name: 'Aisha Khan', location: 'Karachi', text: 'She Loves It has become my go-to store for all beauty products. The quality is amazing and delivery is super fast!', rating: 5 },
-                { name: 'Priya Sharma', location: 'Lahore', text: 'The Vitamin C serum transformed my skin! I have never seen such visible results from any product before. Absolutely love it.', rating: 5 },
-                { name: 'Zara Hassan', location: 'Islamabad', text: 'The Galaxy eyeshadow palette is everything! Beautiful colors, great pigmentation, and the packaging is stunning.', rating: 5 },
-              ].map((review, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl p-6 border border-border/50 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in-up"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                >
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(review.rating)].map((_, j) => (
-                      <Star key={j} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    &ldquo;{review.text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-she-pink-lighter flex items-center justify-center">
-                      <span className="text-she-pink font-semibold text-sm">
-                        {review.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">{review.name}</p>
-                      <p className="text-xs text-muted-foreground">{review.location}</p>
-                    </div>
-                  </div>
-                </div>
               ))}
             </div>
           </div>

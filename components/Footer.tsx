@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, Heart } from 'lucide-react';
+import Image from 'next/image';
 import { categories } from '@/lib/data';
 
 export default function Footer() {
@@ -31,19 +32,21 @@ export default function Footer() {
                     {/* Brand */}
                     <div>
                         <div className="flex items-center gap-2 mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-she-pink to-she-pink-dark flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">S</span>
-                            </div>
-                            <div>
-                                <h4 className="text-lg font-bold">She Loves It</h4>
-                                <p className="text-[10px] text-white/60 tracking-[0.2em] uppercase text-xs">Premium Beauty</p>
+                            <div className="relative w-20 h-10 flex items-center justify-center">
+                                <Image
+                                    src="/logo.png"
+                                    alt="She Loves It"
+                                    width={100}
+                                    height={50}
+                                    className="object-contain brightness-0 invert"
+                                />
                             </div>
                         </div>
                         <p className="text-white/60 text-sm leading-relaxed mb-4">
                             Your destination for premium beauty products. She Loves It empowers your natural beauty with 100% authentic cosmetics.
                         </p>
                         <div className="flex items-center gap-3">
-                            <a href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-she-pink flex items-center justify-center transition-colors">
+                            <a href="https://www.instagram.com/shelovesit1" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white/10 hover:bg-she-pink flex items-center justify-center transition-colors">
                                 <Instagram className="w-4 h-4" />
                             </a>
                             <a href="#" className="w-9 h-9 rounded-full bg-white/10 hover:bg-she-pink flex items-center justify-center transition-colors">

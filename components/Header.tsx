@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
     Search,
     ShoppingBag,
@@ -61,14 +62,8 @@ export default function Header() {
                 : 'bg-white border-b border-she-gray/20'
                 }`}
         >
-            {/* Promo Banner */}
-            <div className="bg-gradient-to-r from-she-pink-dark via-she-pink to-she-pink-dark text-white text-center py-2 text-xs font-medium tracking-wide">
-                ✨ Free Shipping on Orders Over Rs. 3,000 | Use Code <span className="font-bold">SHE10</span> for 10% Off ✨
-            </div>
-
-            {/* Main Header */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+                <div className="flex items-center justify-between h-20">
                     {/* Mobile Menu */}
                     <Sheet>
                         <SheetTrigger asChild>
@@ -79,7 +74,7 @@ export default function Header() {
                         <SheetContent side="left" className="w-72 p-0">
                             <div className="p-6">
                                 <Link href="/" className="block mb-8">
-                                    <h2 className="text-2xl font-bold gradient-text font-[var(--font-display)]">
+                                    <h2 className="text-2xl font-bold font-[var(--font-display)]">
                                         She Loves It
                                     </h2>
                                     <p className="text-xs text-muted-foreground tracking-widest uppercase">Premium Beauty</p>
@@ -116,16 +111,15 @@ export default function Header() {
 
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-she-pink to-she-pink-dark flex items-center justify-center shadow-lg group-hover:shadow-she-pink/40 transition-shadow">
-                            <span className="text-white font-bold text-lg font-[var(--font-display)]">S</span>
-                        </div>
-                        <div className="hidden sm:block">
-                            <h1 className="text-xl font-bold gradient-text leading-none font-[var(--font-display)]">
-                                She Loves It
-                            </h1>
-                            <p className="text-[10px] text-muted-foreground tracking-[0.2em] leading-none uppercase">
-                                Premium Beauty
-                            </p>
+                        <div className="relative w-24 h-14 flex items-center justify-center">
+                            <Image
+                                src="/logo.png"
+                                alt="She Loves It"
+                                width={120}
+                                height={60}
+                                className="object-contain"
+                                priority
+                            />
                         </div>
                     </Link>
 
@@ -274,12 +268,6 @@ export default function Header() {
                             <CartSheet />
                         </Sheet>
 
-                        {/* Account */}
-                        <Link href="/account">
-                            <Button variant="ghost" size="icon" className="hover:bg-she-pink-lighter/50">
-                                <User className="w-5 h-5" />
-                            </Button>
-                        </Link>
                     </div>
                 </div>
             </div>
