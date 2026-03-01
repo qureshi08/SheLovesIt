@@ -210,9 +210,9 @@ export const useAuthStore = create<AuthStore>()((set) => ({
 export const useResourceStore = create<ResourceStore>()(
     persist(
         (set) => ({
-            products: initialProducts,
-            categories: initialCategories,
-            orders: initialOrders,
+            products: [],
+            categories: [],
+            orders: [],
             customers: [],
             settings: {
                 storeName: 'She Loves It',

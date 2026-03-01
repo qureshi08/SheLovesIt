@@ -222,7 +222,7 @@ export default function Header() {
                                             </DropdownMenuItem>
                                         </Link>
                                         {/* Simple admin check - check if email is admin email */}
-                                        {user.email === 'admin@she.com' && (
+                                        {user.role === 'admin' && (
                                             <Link href="/admin">
                                                 <DropdownMenuItem className="cursor-pointer rounded-xl py-2.5 text-she-pink font-bold">
                                                     <LayoutDashboard className="w-4 h-4 mr-2" /> Admin Dashboard

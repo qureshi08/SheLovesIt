@@ -93,6 +93,7 @@ export default function AdminDashboard() {
         updateCustomer,
         refreshFromSupabase
     } = useResourceStore();
+    const { user } = useAuthStore();
 
     useEffect(() => {
         refreshFromSupabase();
@@ -278,11 +279,11 @@ export default function AdminDashboard() {
                 <div className="p-3 border-t">
                     <div className="flex items-center gap-3 px-3 py-2">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-she-pink to-she-pink-dark flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">A</span>
+                            <span className="text-white text-xs font-bold">{user?.full_name?.charAt(0) || 'A'}</span>
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium truncate">Aisha Manager</p>
-                            <p className="text-[10px] text-muted-foreground">admin@she.com</p>
+                            <p className="text-sm font-medium truncate">{user?.full_name || 'Admin User'}</p>
+                            <p className="text-[10px] text-muted-foreground">{user?.email || 'admin@shelovesit.com'}</p>
                         </div>
                     </div>
                     <Link href="/">

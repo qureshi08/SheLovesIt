@@ -2,13 +2,17 @@
 
 import { useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { useAuthStore } from '@/lib/store';
+import { useAuthStore, useResourceStore } from '@/lib/store';
 import { User } from '@/types';
 
 export default function AuthSync() {
     const { setUser, setSession, setLoading } = useAuthStore();
+    const { refreshFromSupabase } = useResourceStore();
 
     useEffect(() => {
+        // 0. Global Store Sync
+        refreshFromSupabase();
+
         // 1. Initial Check
         const checkSession = async () => {
             setLoading(true);
