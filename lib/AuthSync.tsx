@@ -16,12 +16,21 @@ export default function AuthSync() {
 
             if (session) {
                 setSession(session);
+
+                // Fetch extra profile info (including role) from public table
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single();
+
                 const userObj: User = {
                     id: session.user.id,
                     email: session.user.email || '',
-                    full_name: session.user.user_metadata.full_name || 'User',
-                    addresses: [],
+                    full_name: profile?.full_name || session.user.user_metadata.full_name || 'User',
+                    addresses: profile?.addresses || [],
                     created_at: session.user.created_at,
+                    avatar_url: profile?.avatar_url || session.user.user_metadata.avatar_url,
                 };
                 setUser(userObj);
             } else {
@@ -37,14 +46,24 @@ export default function AuthSync() {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             if (session) {
                 setSession(session);
-                const userObj: User = {
-                    id: session.user.id,
-                    email: session.user.email || '',
-                    full_name: session.user.user_metadata.full_name || 'User',
-                    addresses: [],
-                    created_at: session.user.created_at,
-                };
-                setUser(userObj);
+
+                // Also fetch here during login/auth state changes
+                supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', session.user.id)
+                    .single()
+                    .then(({ data: profile }) => {
+                        const userObj: User = {
+                            id: session.user.id,
+                            email: session.user.email || '',
+                            full_name: profile?.full_name || session.user.user_metadata.full_name || 'User',
+                            addresses: profile?.addresses || [],
+                            created_at: session.user.created_at,
+                            avatar_url: profile?.avatar_url || session.user.user_metadata.avatar_url,
+                        };
+                        setUser(userObj);
+                    });
             } else {
                 setUser(null);
                 setSession(null);
