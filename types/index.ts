@@ -100,6 +100,7 @@ export interface User {
   email: string;
   phone?: string;
   full_name: string;
+  role?: string; // 'admin' or 'customer'
   avatar_url?: string;
   addresses: ShippingAddress[];
   created_at: string;
