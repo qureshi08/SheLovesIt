@@ -63,7 +63,7 @@ export default function Header() {
                 }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
+                <div className="flex items-center justify-between h-16">
                     {/* Mobile Menu */}
                     <Sheet>
                         <SheetTrigger asChild>
@@ -109,14 +109,13 @@ export default function Header() {
                         </SheetContent>
                     </Sheet>
 
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="relative w-24 h-14 flex items-center justify-center">
+                    {/* Logo - Refined for luxury feel */}
+                    <Link href="/" className="flex items-center gap-2 group py-2">
+                        <div className="relative w-32 h-10 flex items-center justify-center">
                             <Image
                                 src="/logo.png"
                                 alt="She Loves It"
-                                width={120}
-                                height={60}
+                                fill
                                 className="object-contain"
                                 priority
                             />

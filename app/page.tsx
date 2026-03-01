@@ -69,29 +69,29 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Hero Image Collage */}
+              {/* Hero Image Collage - Updated with relevant luxury assets */}
               <div className="relative hidden lg:block">
-                <div className="relative w-full h-[500px]">
-                  <div className="absolute top-0 right-0 w-72 h-72 rounded-3xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="relative w-full h-[550px]">
+                  <div className="absolute top-0 right-0 w-80 h-80 rounded-3xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-all duration-700 z-10 border-4 border-white/50 backdrop-blur-sm">
                     <Image
-                      src="https://picsum.photos/seed/beauty-hero1/600/600"
-                      alt="Beauty collection"
+                      src="/hero1.png"
+                      alt="Luxury Cosmetics"
                       fill
                       className="object-cover"
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 w-64 h-64 rounded-3xl overflow-hidden shadow-2xl -rotate-3 hover:rotate-0 transition-transform duration-500">
+                  <div className="absolute bottom-4 left-0 w-72 h-72 rounded-3xl overflow-hidden shadow-2xl -rotate-3 hover:rotate-0 transition-all duration-700 border-4 border-white/50 backdrop-blur-sm">
                     <Image
-                      src="https://picsum.photos/seed/beauty-hero2/600/600"
-                      alt="Skincare products"
+                      src="/hero2.png"
+                      alt="Premium Skincare"
                       fill
                       className="object-cover"
                     />
                   </div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full overflow-hidden shadow-2xl border-4 border-white z-10">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full overflow-hidden shadow-2xl border-8 border-white z-20 hover:scale-105 transition-transform duration-500">
                     <Image
-                      src="https://picsum.photos/seed/beauty-hero3/500/500"
-                      alt="Featured product"
+                      src="/hero3.png"
+                      alt="Beauty Palette"
                       fill
                       className="object-cover"
                     />
@@ -106,8 +106,9 @@ export default function HomePage() {
         <section className="py-16 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold mb-3 font-[var(--font-display)]">Shop by Category</h2>
-              <p className="text-muted-foreground">Find exactly what you need</p>
+              <h2 className="text-4xl font-bold mb-3 font-[var(--font-display)] tracking-tight text-she-neutral">Shop by Category</h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-she-pink-dark to-she-pink mx-auto rounded-full" />
+              <p className="text-muted-foreground mt-4 italic">Find exactly what you need</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {categories.map((cat, i) => (
@@ -117,12 +118,12 @@ export default function HomePage() {
                   className="group animate-fade-in-up"
                   style={{ animationDelay: `${i * 80}ms` }}
                 >
-                  <div className="relative bg-white rounded-2xl p-6 text-center border border-border/50 hover:border-she-pink/30 hover:shadow-lg hover:shadow-she-pink/5 transition-all duration-300 group-hover:-translate-y-1">
-                    <div className="text-4xl mb-3">{cat.icon}</div>
-                    <h3 className="font-semibold text-sm mb-1 group-hover:text-she-pink transition-colors">
+                  <div className="relative bg-white rounded-2xl p-6 text-center border border-border/50 hover:border-she-pink/40 hover:shadow-2xl hover:shadow-she-pink/10 transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02]">
+                    <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-500">{cat.icon}</div>
+                    <h3 className="font-bold text-sm mb-1 group-hover:text-she-pink transition-colors tracking-tight">
                       {cat.name}
                     </h3>
-                    <p className="text-xs text-muted-foreground">{cat.product_count} Products</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500">{cat.product_count} Products</p>
                   </div>
                 </Link>
               ))}
@@ -135,11 +136,12 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-10">
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-5 h-5 text-she-pink" />
-                  <span className="text-sm text-she-pink font-medium uppercase tracking-wider">Trending</span>
+                <div className="flex items-center gap-2 mb-2 lg:justify-start justify-center">
+                  <TrendingUp className="w-5 h-5 text-she-pink font-bold" />
+                  <span className="text-xs text-she-pink font-bold uppercase tracking-[0.2em]">Trending</span>
                 </div>
-                <h2 className="text-3xl font-bold font-[var(--font-display)]">Best Sellers</h2>
+                <h2 className="text-4xl font-bold font-[var(--font-display)] tracking-tight text-she-neutral">Best Sellers</h2>
+                <div className="w-16 h-1 bg-gradient-to-r from-she-pink-dark to-she-pink mt-3 rounded-full lg:mx-0 mx-auto" />
               </div>
               <Link href="/products">
                 <Button variant="outline" className="rounded-full border-she-pink/30 text-she-pink-dark hover:bg-she-pink-lighter">
@@ -163,11 +165,12 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-10">
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-5 h-5 text-she-pink" />
-                  <span className="text-sm text-she-pink font-medium uppercase tracking-wider">Just In</span>
+                <div className="flex items-center gap-2 mb-2 lg:justify-start justify-center">
+                  <Sparkles className="w-5 h-5 text-she-pink font-bold" />
+                  <span className="text-xs text-she-pink font-bold uppercase tracking-[0.2em]">Just In</span>
                 </div>
-                <h2 className="text-3xl font-bold font-[var(--font-display)]">New Arrivals</h2>
+                <h2 className="text-4xl font-bold font-[var(--font-display)] tracking-tight text-she-neutral">New Arrivals</h2>
+                <div className="w-16 h-1 bg-gradient-to-r from-she-pink-dark to-she-pink mt-3 rounded-full lg:mx-0 mx-auto" />
               </div>
               <Link href="/products">
                 <Button variant="outline" className="rounded-full border-she-pink/30 text-she-pink-dark hover:bg-she-pink-lighter">

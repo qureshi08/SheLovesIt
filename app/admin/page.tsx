@@ -87,6 +87,7 @@ export default function AdminDashboard() {
         updateCategory,
         deleteCategory,
         updateOrder,
+        deleteOrder,
         settings,
         updateSettings,
         customers,
@@ -98,6 +99,24 @@ export default function AdminDashboard() {
     useEffect(() => {
         refreshFromSupabase();
     }, [refreshFromSupabase]);
+
+    const handleDeleteOrder = async (orderId: number) => {
+        if (!window.confirm("Are you sure you want to delete this order? This action cannot be undone.")) return;
+
+        try {
+            const { error } = await supabase
+                .from('orders')
+                .delete()
+                .eq('id', orderId);
+
+            if (error) throw error;
+            deleteOrder(orderId);
+            toast.success("Order deleted successfully");
+        } catch (e) {
+            console.error("Delete order error:", e);
+            toast.error("Failed to delete order");
+        }
+    };
 
     const toggleRole = async (customerId: string, currentRole: string) => {
         const newRole = currentRole === 'admin' ? 'customer' : 'admin';
@@ -764,8 +783,8 @@ export default function AdminDashboard() {
                                                             </DropdownMenuSub>
 
                                                             <DropdownMenuSeparator />
-                                                            <DropdownMenuItem className="cursor-pointer" onClick={() => handleDownloadInvoice(order)}>
-                                                                <Download className="w-4 h-4 mr-2" /> Download Invoice
+                                                            <DropdownMenuItem className="text-destructive cursor-pointer" onClick={() => handleDeleteOrder(order.id)}>
+                                                                <AlertTriangle className="w-4 h-4 mr-2" /> Delete Order
                                                             </DropdownMenuItem>
                                                         </DropdownMenuContent>
                                                     </DropdownMenu>
